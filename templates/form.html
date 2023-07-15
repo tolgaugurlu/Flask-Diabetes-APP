@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Diyabet Risk Oranı Hesaplama</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <!-- Font Awesome linki sosyal medya ikonları için eklendi -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f5f5f5;
+      }
+      form {
+        width: 300px;
+        padding: 20px;
+        border-radius: 5px;
+        background: white;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      }
+      form h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      form input[type="text"],
+      form input[type="number"] {
+        width: 93%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      form input[type="submit"] {
+        width: 100%;
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+      }
+      form input[type="submit"]:hover,
+      form button:hover {
+        background-color: #45a049;
+      }
+
+      /* İndeks hesapalma */
+      #bmi_calculator {
+        margin-left: 20px;
+      }
+      orm#bmi_calculator {
+        width: 300px;
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      form#bmi_calculator h1 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      form#bmi_calculator label {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      form#bmi_calculator input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+      }
+
+      form#bmi_calculator button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        background-color: #5c6bc0;
+      }
+
+      form#bmi_calculator p {
+        font-size: 16px;
+        color: #333;
+      }
+
+      form#bmi_calculator p#bmi_result {
+        font-size: 18px;
+        font-weight: bold;
+        color: #5c6bc0;
+        margin-top: 20px;
+      }
+      /* Footer CSS */
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #f5f5f5;
+        color: black;
+        text-align: center;
+        padding: 10px;
+      }
+      /* Sosyal Medya Menüsü CSS */
+      .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+      }
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+      .sidenav a:hover {
+        color: #f1f1f1;
+      }
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+      .openbtn {
+        font-size: 30px;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        z-index: 1;
+      }
+      @media screen and (max-height: 450px) {
+        .sidenav {
+          padding-top: 15px;
+        }
+        .sidenav a {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+        >&times;</a
+      >
+      <a href="#"><i class="fab fa-github"></i> GitHub</a>
+      <a href="#"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+      <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+    </div>
+    <span class="openbtn" onclick="openNav()">&#9776;</span>
+    <form method="POST">
+      <h1>Diyabet Risk Oranı Hesaplama</h1>
+      <label for="age">Yaşınız:</label>
+      <input type="text" id="age" name="age" placeholder="Ör: 30" />
+      <label for="gender">Cinsiyet:</label>
+      <input type="text" id="gender" name="gender" placeholder="Ör: Kadın" />
+      <label for="physical_activity_level">Fiziksel Aktivite Düzeyi:</label>
+      <input
+        type="text"
+        id="physical_activity_level"
+        name="physical_activity_level"
+        placeholder="Ör: Düşük"
+      />
+      <label for="diet">Beslenme Alışkanlıkları:</label>
+      <input type="text" id="diet" name="diet" placeholder="Ör: Düzensiz" />
+      <label for="family_history">Ailede Diyabet Geçmişi:</label>
+      <input
+        type="text"
+        id="family_history"
+        name="family_history"
+        placeholder="Ör: Evet"
+      />
+      <label for="bmi">Vücut Kitle İndeksi (BMI):</label>
+      <input type="text" id="bmi" name="bmi" placeholder="Ör: 25" />
+      <input type="submit" value="Riski Hesapla" />
+    </form>
+
+    <form id="bmi_calculator">
+      <h1>Vücut Kitle İndeksi Hesaplama</h1>
+      <label for="weight">Ağırlık (kg):</label>
+      <input type="number" id="weight" name="weight" placeholder="Ör: 70" />
+      <label for="height">Boy (cm):</label>
+      <input type="number" id="height" name="height" placeholder="Ör: 170" />
+      <button type="button" onclick="calculateBMI()">BMI Hesapla</button>
+      <p id="bmi_result"></p>
+    </form>
+    <div class="footer">&copy; 2023 Tolga Uğurlu</div>
+    <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "200px";
+      }
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+      function calculateBMI() {
+        var weight = document.getElementById("weight").value;
+        var height = document.getElementById("height").value;
+        height = height / 100;
+        var bmi = weight / (height * height);
+        document.getElementById("bmi_result").innerHTML =
+          "Vücut Kitle İndeksiniz: " + bmi.toFixed(1);
+      }
+    </script>
+  </body>
+</html>
